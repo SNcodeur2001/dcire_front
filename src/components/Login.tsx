@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import BackArrowIcon from '../assets/back-arrow.svg?react'
+import { Link, useNavigate } from 'react-router-dom'
+import HomeIcon from '../assets/home-icon-login.svg?react'
 
 function Login() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -10,47 +11,50 @@ function Login() {
     e.preventDefault()
     // Handle login logic here
     console.log('Login attempt:', { email, password })
+    // Redirect to dashboard after successful login
+    navigate('/dashboard')
   }
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center px-4"
-      style={{ backgroundColor: 'var(--color-bg-light)' }}
+      className="h-screen overflow-hidden flex items-center justify-center px-4"
+      style={{ backgroundColor: '#f5f5f5' }}
     >
-      {/* Back Button */}
+      {/* Home Button */}
       <Link
         to="/"
-        className="fixed top-12 left-12 flex items-center gap-2 hover:scale-110 transition-transform"
+        className="fixed top-6 left-6 md:top-12 md:left-12 hover:scale-110 transition-transform z-10"
+        aria-label="Retour à l'accueil"
       >
-        <BackArrowIcon className="w-6 h-6" style={{ color: 'var(--color-black)' }} />
-        <span style={{ color: 'var(--color-black)', fontSize: 'var(--font-size-md)' }}>Retour</span>
+        <HomeIcon className="w-6 h-6 md:w-8 md:h-8" style={{ color: '#000000' }} />
       </Link>
 
       {/* Login Card */}
       <div 
-        className="w-full max-w-[686px] px-16 py-20 bg-white"
+        className="w-full max-w-[600px] px-8 py-8 md:px-12 md:py-12 lg:px-16 lg:py-14 bg-white overflow-y-auto max-h-[95vh]"
         style={{
-          borderRadius: 'var(--radius-md)',
+          borderRadius: '20px',
           boxShadow: '1px 1px 4px 3px rgba(109, 109, 109, 0.25)'
         }}
       >
         {/* Logo */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-6">
           <img 
-            src="/sonatel-logo.png" 
+            src="/logo-sonatel.png" 
             alt="Sonatel" 
-            className="h-11 object-contain"
+            className="h-9 md:h-11 object-contain"
           />
         </div>
 
         {/* Title */}
         <h1 
-          className="text-center mb-4"
+          className="text-center mb-1.5"
           style={{
-            color: 'var(--color-black)',
-            fontSize: 'var(--font-size-xl)',
-            fontWeight: 'var(--font-weight-bold)',
-            lineHeight: 'var(--line-height-md)'
+            color: '#000000',
+            fontSize: 'clamp(18px, 4vw, 24px)',
+            fontWeight: '700',
+            lineHeight: '1.2',
+            fontFamily: 'Roboto, sans-serif'
           }}
         >
           Gestion Des Courriers
@@ -58,12 +62,13 @@ function Login() {
 
         {/* Subtitle */}
         <p 
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-10 lg:mb-12"
           style={{
-            color: 'var(--color-gray-medium)',
-            fontSize: 'var(--font-size-xl)',
-            fontWeight: 'var(--font-weight-bold)',
-            lineHeight: 'var(--line-height-md)'
+            color: '#9f9f9f',
+            fontSize: 'clamp(16px, 3.5vw, 24px)',
+            fontWeight: '700',
+            lineHeight: '1.2',
+            fontFamily: 'Roboto, sans-serif'
           }}
         >
           DCIRE-SONATEL
@@ -73,18 +78,21 @@ function Login() {
         <form onSubmit={handleSubmit}>
           {/* Email Field */}
           <fieldset
-            className="mb-8"
+            className="mb-5 md:mb-6"
             style={{
-              border: '1px solid var(--color-gray-border)',
-              borderRadius: 'var(--radius-sm)',
-              padding: '0.5rem 1rem'
+              border: '1px solid #9d9d9d',
+              borderRadius: '8px',
+              padding: '0.75rem 1rem md:1rem md:1.5rem'
             }}
           >
             <legend
               style={{
-                fontSize: 'var(--font-size-sm)',
-                color: 'var(--color-gray-medium)',
-                padding: '0 8px'
+                fontSize: 'clamp(16px, 3vw, 20px)',
+                fontWeight: '500',
+                color: '#939393',
+                padding: '0 8px',
+                fontFamily: 'Roboto, sans-serif',
+                lineHeight: '1.2'
               }}
             >
               Email
@@ -95,31 +103,34 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Votre email"
               style={{
                 border: 'none',
                 outline: 'none',
                 width: '100%',
-                fontSize: 'var(--font-size-xs)',
-                padding: '0.5rem 0'
+                fontSize: 'clamp(14px, 2.5vw, 16px)',
+                padding: '0.5rem 0',
+                fontFamily: 'Roboto, sans-serif'
               }}
             />
           </fieldset>
 
           {/* Password Field */}
           <fieldset
-            className="mb-10"
+            className="mb-6 md:mb-8"
             style={{
-              border: '1px solid var(--color-gray-border)',
-              borderRadius: 'var(--radius-sm)',
-              padding: '0.5rem 1rem'
+              border: '1px solid #9d9d9d',
+              borderRadius: '8px',
+              padding: '0.75rem 1rem md:1rem md:1.5rem'
             }}
           >
             <legend
               style={{
-                fontSize: 'var(--font-size-sm)',
-                color: 'var(--color-gray-medium)',
-                padding: '0 8px'
+                fontSize: 'clamp(16px, 3vw, 20px)',
+                fontWeight: '500',
+                color: '#939393',
+                padding: '0 8px',
+                fontFamily: 'Roboto, sans-serif',
+                lineHeight: '1.2'
               }}
             >
               Mot De Passe
@@ -130,13 +141,13 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Votre mot de passe"
               style={{
                 border: 'none',
                 outline: 'none',
                 width: '100%',
-                fontSize: 'var(--font-size-xs)',
-                padding: '0.5rem 0'
+                fontSize: 'clamp(14px, 2.5vw, 16px)',
+                padding: '0.5rem 0',
+                fontFamily: 'Roboto, sans-serif'
               }}
             />
           </fieldset>
@@ -144,31 +155,33 @@ function Login() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-5 text-white transition-all duration-300 hover:scale-[1.02]"
+            className="w-full py-4 md:py-5 text-white transition-all duration-300 hover:scale-[1.02]"
             style={{
-              backgroundColor: 'var(--color-orange-primary)',
-              borderRadius: 'var(--radius-sm)',
-              fontSize: 'var(--font-size-3xl)',
-              fontWeight: 'var(--font-weight-medium)',
-              lineHeight: 'var(--line-height-md)'
+              backgroundColor: '#ea580c',
+              borderRadius: '8px',
+              fontSize: 'clamp(20px, 5vw, 32px)',
+              fontWeight: '500',
+              lineHeight: '1.2',
+              fontFamily: 'Roboto, sans-serif'
             }}
           >
             Se connecter
           </button>
 
           {/* Forgot Password Link */}
-          <div className="text-center mt-8">
-            <a 
-              href="#"
+          <div className="text-center mt-5 md:mt-6">
+            <Link
+              to="/mot-de-passe-oublie"
               className="hover:underline"
               style={{
-                color: 'var(--color-orange-primary)',
-                fontSize: 'var(--font-size-sm)',
-                fontWeight: 'var(--font-weight-normal)'
+                color: '#ea580c',
+                fontSize: 'clamp(12px, 2vw, 14px)',
+                fontWeight: '400',
+                fontFamily: 'Roboto, sans-serif'
               }}
             >
               Mot de passe oublié ?
-            </a>
+            </Link>
           </div>
         </form>
       </div>
