@@ -12,6 +12,7 @@ import DirectorDashboard from './pages/director/DirectorDashboard'
 import AllCouriers from './pages/director/AllCouriers'
 import ImputedCouriers from './pages/director/ImputedCouriers'
 import SettledCouriers from './pages/director/SettledCouriers'
+import CourrierDetail from './pages/director/CourrierDetail'
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/directeur/tous-les-courriers" element={<AllCouriers />} />
         <Route path="/directeur/courriers-imputes" element={<ImputedCouriers />} />
         <Route path="/directeur/courriers-soldes" element={<SettledCouriers />} />
+        <Route path="/directeur/courrier/:id" element={<CourrierDetail />} />
       </Routes>
     </BrowserRouter>
   )

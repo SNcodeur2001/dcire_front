@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import type { DirectorMail } from '../../types';
 
 interface DirectorDataTableProps {
@@ -17,6 +18,7 @@ export default function DirectorDataTable({
   showDuration = false,
   statusType = 'priority'
 }: DirectorDataTableProps) {
+  const navigate = useNavigate();
   
   const getStatusBadge = (status: string) => {
     if (statusType === 'priority') {
@@ -265,6 +267,7 @@ export default function DirectorDataTable({
                 )}
                 <td className="px-3 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4">
                   <button 
+                    onClick={() => navigate(`/directeur/courrier/${mail.id}`)}
                     className="hover:opacity-70 transition-opacity"
                     aria-label="Voir les détails"
                   >

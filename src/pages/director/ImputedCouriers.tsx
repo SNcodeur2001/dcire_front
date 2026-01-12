@@ -7,8 +7,8 @@ import type { DirectorMail } from '../../types';
 
 const mockMails: DirectorMail[] = [
   {
-    id: '1',
-    reference: 'CR-2024-001',
+    id: '5',
+    reference: 'CR-2024-005',
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
@@ -16,8 +16,8 @@ const mockMails: DirectorMail[] = [
     duration: '10 jours',
   },
   {
-    id: '2',
-    reference: 'CR-2024-001',
+    id: '6',
+    reference: 'CR-2024-006',
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
@@ -25,8 +25,8 @@ const mockMails: DirectorMail[] = [
     duration: '7 jours',
   },
   {
-    id: '3',
-    reference: 'CR-2024-001',
+    id: '7',
+    reference: 'CR-2024-007',
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
@@ -34,8 +34,8 @@ const mockMails: DirectorMail[] = [
     duration: '5 jours',
   },
   {
-    id: '4',
-    reference: 'CR-2024-001',
+    id: '8',
+    reference: 'CR-2024-008',
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',

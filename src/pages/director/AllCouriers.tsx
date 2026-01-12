@@ -16,7 +16,7 @@ const mockMails: DirectorMail[] = [
   },
   {
     id: '2',
-    reference: 'CR-2024-001',
+    reference: 'CR-2024-002',
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
@@ -24,7 +24,7 @@ const mockMails: DirectorMail[] = [
   },
   {
     id: '3',
-    reference: 'CR-2024-001',
+    reference: 'CR-2024-003',
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
@@ -32,7 +32,7 @@ const mockMails: DirectorMail[] = [
   },
   {
     id: '4',
-    reference: 'CR-2024-001',
+    reference: 'CR-2024-004',
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
