@@ -7,7 +7,7 @@ interface DirectorDataTableProps {
   mails: DirectorMail[];
   showStatus?: boolean;
   showDuration?: boolean;
-  statusType?: 'priority' | 'imputer' | 'solder';
+  statusType?: 'priority' | 'imputé' | 'soldé';
 }
 
 export default function DirectorDataTable({ 
@@ -180,7 +180,7 @@ export default function DirectorDataTable({
                     letterSpacing: '0.60px'
                   }}
                 >
-                  {statusType === 'priority' ? 'Etat' : statusType === 'imputer' ? 'Status' : 'Status'}
+                  {statusType === 'priority' ? 'Etat' : statusType === 'imputé' ? 'Status' : 'Status'}
                 </th>
               )}
               <th 

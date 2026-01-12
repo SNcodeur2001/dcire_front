@@ -12,7 +12,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'Solder',
+    status: 'Soldé',
   },
   {
     id: '10',
@@ -20,7 +20,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'Solder',
+    status: 'Soldé',
   },
   {
     id: '11',
@@ -28,7 +28,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'Solder',
+    status: 'Soldé',
   },
   {
     id: '12',
@@ -36,7 +36,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'Solder',
+    status: 'soldé',
   },
 ];
 
@@ -82,7 +82,7 @@ export default function SettledCouriers() {
               title="Liste des Courriers soldés"
               subtitle="Votre mission principale : vérifier et valider les données extraites"
               mails={mockMails}
-              statusType="solder"
+              statusType="soldé"
             />
           </div>
           

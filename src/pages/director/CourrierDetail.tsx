@@ -49,7 +49,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'imputer',
+    status: 'imputé',
     duration: '10 jours',
   },
   {
@@ -58,7 +58,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'imputer',
+    status: 'imputé',
     duration: '7 jours',
   },
   {
@@ -67,7 +67,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'imputer',
+    status: 'imputé',
     duration: '5 jours',
   },
   {
@@ -76,7 +76,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'imputer',
+    status: 'imputé',
     duration: '3 jours',
   },
   {
@@ -85,7 +85,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'Solder',
+    status: 'Soldé',
   },
   {
     id: '10',
@@ -93,7 +93,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'Solder',
+    status: 'Soldé',
   },
   {
     id: '11',
@@ -101,7 +101,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'Solder',
+    status: 'Soldé',
   },
   {
     id: '12',
@@ -109,7 +109,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'Solder',
+    status: 'Soldé',
   },
 ];
 

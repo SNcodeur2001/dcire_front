@@ -12,7 +12,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'imputer',
+    status: 'imputé',
     duration: '10 jours',
   },
   {
@@ -21,7 +21,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'imputer',
+    status: 'imputé',
     duration: '7 jours',
   },
   {
@@ -30,7 +30,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'imputer',
+    status: 'imputé',
     duration: '5 jours',
   },
   {
@@ -39,7 +39,7 @@ const mockMails: DirectorMail[] = [
     sender: 'Ministère des Finances',
     subject: 'Demande de partenariat stratégique',
     receptionDate: '15/01/2024',
-    status: 'imputer',
+    status: 'imputé',
     duration: '3 jours',
   },
 ];
@@ -82,11 +82,11 @@ export default function ImputedCouriers() {
         {/* Data Table */}
         <div className="flex-1 min-h-0 flex flex-col">
           <div className="flex-1 min-h-0">
-            <DirectorDataTable 
-              title="Liste des Courriers  imputer"
+            <DirectorDataTable
+              title="Liste des Courriers imputés"
               subtitle="Votre mission principale : vérifier et valider les données extraites"
               mails={mockMails}
-              statusType="imputer"
+              statusType="imputé"
               showDuration={true}
             />
           </div>
