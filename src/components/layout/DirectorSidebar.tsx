@@ -4,16 +4,16 @@ interface NavItem {
   to: string;
   icon: string;
   label: string;
-  isActive?: boolean;
 }
 
 const navItems: NavItem[] = [
-  { to: '/dashboard', icon: '/icons/dashboard.svg', label: 'Tableau de bord', isActive: true },
-  { to: '/nouveau-courrier', icon: '/icons/add-circle.svg', label: 'Nouveau courrier' },
-  { to: '/tous-courriers', icon: '/icons/mail.svg', label: 'Tous les courriers' },
+  { to: '/directeur/tableau-de-bord', icon: '/icons/dashboard.svg', label: 'Tableau de bord' },
+  { to: '/directeur/tous-les-courriers', icon: '/icons/mail.svg', label: 'Tous les courriers' },
+  { to: '/directeur/courriers-imputes', icon: '/icons/mail-assigned.svg', label: 'Courriers Imputés' },
+  { to: '/directeur/courriers-soldes', icon: '/icons/mail-settled.svg', label: 'Courriers soldés' },
 ];
 
-export default function Sidebar() {
+export default function DirectorSidebar() {
   const navigate = useNavigate();
 
   return (

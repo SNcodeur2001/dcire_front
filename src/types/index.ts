@@ -12,6 +12,11 @@ export interface Mail {
   receptionDate: string;
 }
 
+export interface DirectorMail extends Mail {
+  status?: string;
+  duration?: string;
+}
+
 export interface Stats {
   totalMonth: number;
   totalDay: number;

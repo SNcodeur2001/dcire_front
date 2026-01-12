@@ -6,13 +6,18 @@ function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [role, setRole] = useState<'assistante' | 'directeur'>('assistante')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Handle login logic here
-    console.log('Login attempt:', { email, password })
-    // Redirect to dashboard after successful login
-    navigate('/dashboard')
+    console.log('Login attempt:', { email, password, role })
+    // Redirect to appropriate dashboard based on role
+    if (role === 'directeur') {
+      navigate('/directeur/tableau-de-bord')
+    } else {
+      navigate('/dashboard')
+    }
   }
 
   return (
@@ -76,6 +81,48 @@ function Login() {
 
         {/* Login Form */}
         <form onSubmit={handleSubmit}>
+          {/* Role Selection */}
+          <fieldset
+            className="mb-5 md:mb-6"
+            style={{
+              border: '1px solid #9d9d9d',
+              borderRadius: '8px',
+              padding: '0.75rem 1rem md:1rem md:1.5rem'
+            }}
+          >
+            <legend
+              style={{
+                fontSize: 'clamp(16px, 3vw, 20px)',
+                fontWeight: '500',
+                color: '#939393',
+                padding: '0 8px',
+                fontFamily: 'Roboto, sans-serif',
+                lineHeight: '1.2'
+              }}
+            >
+              Rôle
+            </legend>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value as 'assistante' | 'directeur')}
+              required
+              style={{
+                border: 'none',
+                outline: 'none',
+                width: '100%',
+                fontSize: 'clamp(14px, 2.5vw, 16px)',
+                padding: '0.5rem 0',
+                fontFamily: 'Roboto, sans-serif',
+                backgroundColor: 'transparent',
+                cursor: 'pointer'
+              }}
+            >
+              <option value="assistante">Assistante</option>
+              <option value="directeur">Directeur</option>
+            </select>
+          </fieldset>
+
           {/* Email Field */}
           <fieldset
             className="mb-5 md:mb-6"

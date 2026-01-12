@@ -7,6 +7,12 @@ import Hero from './components/Hero'
 import Login from './components/Login'
 import ForgotPassword from './components/ForgotPassword'
 
+// Director Pages
+import DirectorDashboard from './pages/director/DirectorDashboard'
+import AllCouriers from './pages/director/AllCouriers'
+import ImputedCouriers from './pages/director/ImputedCouriers'
+import SettledCouriers from './pages/director/SettledCouriers'
+
 function App() {
   return (
     <BrowserRouter>
@@ -24,11 +30,17 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
         
-        {/* Dashboard Pages */}
+        {/* Assistant Dashboard Pages */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/nouveau-courrier" element={<NewCourrierUpload />} />
         <Route path="/nouveau-courrier/formulaire" element={<NewCourrierForm />} />
         <Route path="/tous-courriers" element={<Navigate to="/dashboard" replace />} />
+        
+        {/* Director Dashboard Pages */}
+        <Route path="/directeur/tableau-de-bord" element={<DirectorDashboard />} />
+        <Route path="/directeur/tous-les-courriers" element={<AllCouriers />} />
+        <Route path="/directeur/courriers-imputes" element={<ImputedCouriers />} />
+        <Route path="/directeur/courriers-soldes" element={<SettledCouriers />} />
       </Routes>
     </BrowserRouter>
   )
