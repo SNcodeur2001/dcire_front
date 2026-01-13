@@ -6,7 +6,7 @@ function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState<'assistante' | 'directeur' | 'departement'>('assistante')
+  const [role, setRole] = useState<'assistante' | 'directeur' | 'departement' | 'porteur'>('assistante')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -17,6 +17,8 @@ function Login() {
       navigate('/directeur/tableau-de-bord')
     } else if (role === 'departement') {
       navigate('/departement/tableau-de-bord')
+    } else if (role === 'porteur') {
+      navigate('/porteur/tableau-de-bord')
     } else {
       navigate('/dashboard')
     }
@@ -107,7 +109,7 @@ function Login() {
             <select
               id="role"
               value={role}
-              onChange={(e) => setRole(e.target.value as 'assistante' | 'directeur' | 'departement')}
+              onChange={(e) => setRole(e.target.value as 'assistante' | 'directeur' | 'departement' | 'porteur')}
               required
               style={{
                 border: 'none',
@@ -123,6 +125,7 @@ function Login() {
               <option value="assistante">Assistante</option>
               <option value="directeur">Directeur</option>
               <option value="departement">Département</option>
+              <option value="porteur">Porteur</option>
             </select>
           </fieldset>
 

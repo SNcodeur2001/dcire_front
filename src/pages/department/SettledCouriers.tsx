@@ -63,7 +63,7 @@ export default function SettledCouriers() {
             title="Courriers Soldés"
             subtitle="Consultez l'historique des courriers traités"
             mails={mockMails}
-            statusType="settled"
+            statusType="soldé"
           />
         </div>
       </div>

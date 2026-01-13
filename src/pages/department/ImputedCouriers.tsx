@@ -67,7 +67,7 @@ export default function ImputedCouriers() {
             title="Courriers Imputés"
             subtitle="Suivez l'état d'avancement des courriers assignés"
             mails={mockMails}
-            statusType="imputed"
+            statusType="imputé"
           />
         </div>
       </div>

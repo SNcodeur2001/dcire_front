@@ -21,6 +21,13 @@ import DepartmentImputedCouriers from './pages/department/ImputedCouriers'
 import DepartmentSettledCouriers from './pages/department/SettledCouriers'
 import DepartmentCourrierDetail from './pages/department/CourrierDetail'
 
+// Porteur Pages
+import PorteurDashboard from './pages/porteur/PorteurDashboard'
+import CourriersASolder from './pages/porteur/CourriersASolder'
+import CourriersSoldes from './pages/porteur/CourriersSoldes'
+import CourriersArchives from './pages/porteur/CourriersArchives'
+import PorteurCourrierDetail from './pages/porteur/CourrierDetail'
+
 function App() {
   return (
     <BrowserRouter>
@@ -57,6 +64,13 @@ function App() {
         <Route path="/departement/courriers-imputes" element={<DepartmentImputedCouriers />} />
         <Route path="/departement/courriers-soldes" element={<DepartmentSettledCouriers />} />
         <Route path="/departement/courrier/:id" element={<DepartmentCourrierDetail />} />
+
+        {/* Porteur Dashboard Pages */}
+        <Route path="/porteur/tableau-de-bord" element={<PorteurDashboard />} />
+        <Route path="/porteur/courriers-a-solder" element={<CourriersASolder />} />
+        <Route path="/porteur/courriers-soldes" element={<CourriersSoldes />} />
+        <Route path="/porteur/courriers-archives" element={<CourriersArchives />} />
+        <Route path="/porteur/courrier/:id" element={<PorteurCourrierDetail />} />
       </Routes>
     </BrowserRouter>
   )
