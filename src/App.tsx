@@ -14,6 +14,13 @@ import ImputedCouriers from './pages/director/ImputedCouriers'
 import SettledCouriers from './pages/director/SettledCouriers'
 import CourrierDetail from './pages/director/CourrierDetail'
 
+// Department Pages
+import DepartmentDashboard from './pages/department/DepartmentDashboard'
+import DepartmentAllCouriers from './pages/department/AllCouriers'
+import DepartmentImputedCouriers from './pages/department/ImputedCouriers'
+import DepartmentSettledCouriers from './pages/department/SettledCouriers'
+import DepartmentCourrierDetail from './pages/department/CourrierDetail'
+
 function App() {
   return (
     <BrowserRouter>
@@ -43,6 +50,13 @@ function App() {
         <Route path="/directeur/courriers-imputes" element={<ImputedCouriers />} />
         <Route path="/directeur/courriers-soldes" element={<SettledCouriers />} />
         <Route path="/directeur/courrier/:id" element={<CourrierDetail />} />
+
+        {/* Department Dashboard Pages */}
+        <Route path="/departement/tableau-de-bord" element={<DepartmentDashboard />} />
+        <Route path="/departement/tous-les-courriers" element={<DepartmentAllCouriers />} />
+        <Route path="/departement/courriers-imputes" element={<DepartmentImputedCouriers />} />
+        <Route path="/departement/courriers-soldes" element={<DepartmentSettledCouriers />} />
+        <Route path="/departement/courrier/:id" element={<DepartmentCourrierDetail />} />
       </Routes>
     </BrowserRouter>
   )

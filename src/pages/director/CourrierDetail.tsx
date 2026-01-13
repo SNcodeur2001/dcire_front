@@ -15,7 +15,7 @@ const mockMails: DirectorMail[] = [
     id: '1',
     reference: 'CR-2024-001',
     sender: 'Ministère des Finances',
-    subject: 'Demande de partenariat stratégique',
+    subject: 'Demande de partenariat stratégique pour le développement numérique',
     receptionDate: '15/01/2024',
     status: 'priorité',
   },
@@ -113,10 +113,31 @@ const mockMails: DirectorMail[] = [
   },
 ];
 
+const porteurOptions = [
+  'Mamadou Bachirou Diamé',
+  'Ousmane Marra',
+  'Mapathé Ndiaye',
+  'Fallou Ndiaye'
+];
+
 export default function CourrierDetail() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const mail = mockMails.find(m => m.id === id);
+  
+  // Check user role - "Departement" shows dropdown, "Directeur" shows checkboxes
+  const userRole = 'Directeur'; // This should come from auth context in production
+  const isDepartement = userRole.toLowerCase() === 'departement';
+
+  const [departments, setDepartments] = useState<DepartmentOption[]>([
+    { id: 'odc', label: 'Orange Digital center', porteur: false, contributeur: false },
+    { id: 'fes', label: 'FES', porteur: false, contributeur: false },
+    { id: 'peren', label: 'PEREN', porteur: false, contributeur: false },
+    { id: 'scide', label: 'SCIDE', porteur: false, contributeur: false },
+  ]);
+
+  const [selectedPorteur, setSelectedPorteur] = useState<string>('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   if (!mail) {
     return (
@@ -127,13 +148,6 @@ export default function CourrierDetail() {
       </DirectorLayout>
     );
   }
-
-  const [departments, setDepartments] = useState<DepartmentOption[]>([
-    { id: 'odc', label: 'Orange Digital center', porteur: false, contributeur: false },
-    { id: 'fes', label: 'FES', porteur: false, contributeur: false },
-    { id: 'peren', label: 'PEREN', porteur: false, contributeur: false },
-    { id: 'scide', label: 'SCIDE', porteur: false, contributeur: false },
-  ]);
 
   const handlePorteurChange = (id: string) => {
     setDepartments(departments.map(dept => 
@@ -147,9 +161,17 @@ export default function CourrierDetail() {
     ));
   };
 
+  const handlePorteurSelect = (porteur: string) => {
+    setSelectedPorteur(porteur);
+    setIsDropdownOpen(false);
+  };
+
   const handleImputer = () => {
-    // Handle imputer action
-    console.log('Imputer courrier', departments);
+    if (isDepartement && !selectedPorteur) {
+      alert('Veuillez sélectionner un porteur');
+      return;
+    }
+    console.log('Imputer courrier', isDepartement ? { porteur: selectedPorteur } : departments);
   };
 
   return (
@@ -159,31 +181,31 @@ export default function CourrierDetail() {
         <div className="mb-6">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 px-3 py-2 hover:bg-(--color-gray-50) rounded-sm transition-colors mb-4"
+            className="flex items-center gap-2 mb-4 hover:opacity-70 transition-opacity"
           >
             <img 
               src="/icons/arrow-back.svg" 
               alt="" 
-              className="w-2.5 h-2.5"
+              className="w-3 h-2.5"
               style={{ filter: 'invert(29%) sepia(8%) saturate(735%) hue-rotate(181deg) brightness(95%) contrast(86%)' }}
             />
             <span 
-              className="text-sm md:text-base font-normal"
-              style={{ color: 'var(--color-gray-600)' }}
+              className="text-base font-normal"
+              style={{ color: '#4b5563' }}
             >
               Retour
             </span>
           </button>
 
-          <div className="flex items-center gap-4 mb-2">
+          <div className="flex items-center gap-3 mb-2">
             <h1 
-              className="text-lg md:text-2xl font-bold"
-              style={{ color: 'var(--color-gray-900)' }}
+              className="text-2xl font-bold"
+              style={{ color: '#111827' }}
             >
               Détail du courrier
             </h1>
             <span 
-              className="text-lg md:text-2xl font-normal"
+              className="text-2xl font-normal"
               style={{ 
                 color: '#009390',
                 lineHeight: '20px'
@@ -194,8 +216,8 @@ export default function CourrierDetail() {
           </div>
           
           <p
-            className="text-sm md:text-base font-normal"
-            style={{ color: 'var(--color-gray-500)' }}
+            className="text-base font-normal"
+            style={{ color: '#6b7280' }}
           >
             {mail.reference}
           </p>
@@ -206,12 +228,15 @@ export default function CourrierDetail() {
           <div className="lg:col-span-2 space-y-6">
             {/* Informations Section */}
             <div 
-              className="bg-white rounded-md border border-(--color-gray-100) p-4 md:p-6"
-              style={{ boxShadow: 'var(--shadow-sm)' }}
+              className="bg-white rounded-xl border p-6"
+              style={{ 
+                borderColor: '#f3f4f6',
+                boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.05)'
+              }}
             >
               <h2 
                 className="text-base font-semibold mb-6"
-                style={{ color: 'var(--color-gray-900)' }}
+                style={{ color: '#111827' }}
               >
                 Informations
               </h2>
@@ -221,13 +246,13 @@ export default function CourrierDetail() {
                 <div>
                   <p 
                     className="text-sm font-normal mb-1"
-                    style={{ color: 'var(--color-gray-600)' }}
+                    style={{ color: '#4b5563' }}
                   >
                     Référence
                   </p>
                   <p
                     className="text-base font-medium"
-                    style={{ color: 'var(--color-gray-900)' }}
+                    style={{ color: '#111827' }}
                   >
                     {mail.reference}
                   </p>
@@ -237,13 +262,13 @@ export default function CourrierDetail() {
                 <div>
                   <p 
                     className="text-sm font-normal mb-1"
-                    style={{ color: 'var(--color-gray-600)' }}
+                    style={{ color: '#4b5563' }}
                   >
                     Expéditeur
                   </p>
                   <p
                     className="text-base font-medium"
-                    style={{ color: 'var(--color-gray-900)' }}
+                    style={{ color: '#111827' }}
                   >
                     {mail.sender}
                   </p>
@@ -253,13 +278,13 @@ export default function CourrierDetail() {
                 <div>
                   <p 
                     className="text-sm font-normal mb-1"
-                    style={{ color: 'var(--color-gray-600)' }}
+                    style={{ color: '#4b5563' }}
                   >
                     Département
                   </p>
                   <p 
                     className="text-base font-medium"
-                    style={{ color: 'var(--color-gray-900)' }}
+                    style={{ color: '#111827' }}
                   >
                     Relations Extérieures
                   </p>
@@ -269,14 +294,14 @@ export default function CourrierDetail() {
                 <div>
                   <p 
                     className="text-sm font-normal mb-1"
-                    style={{ color: 'var(--color-gray-600)' }}
+                    style={{ color: '#4b5563' }}
                   >
                     Objet
                   </p>
                   <p
                     className="text-base font-medium line-clamp-2"
                     style={{
-                      color: 'var(--color-gray-900)',
+                      color: '#111827',
                       lineHeight: '24px'
                     }}
                   >
@@ -288,13 +313,13 @@ export default function CourrierDetail() {
                 <div>
                   <p 
                     className="text-sm font-normal mb-1"
-                    style={{ color: 'var(--color-gray-600)' }}
+                    style={{ color: '#4b5563' }}
                   >
                     Reçu le
                   </p>
                   <p
                     className="text-base font-medium"
-                    style={{ color: 'var(--color-gray-900)' }}
+                    style={{ color: '#111827' }}
                   >
                     {mail.receptionDate}
                   </p>
@@ -304,13 +329,13 @@ export default function CourrierDetail() {
                 <div>
                   <p 
                     className="text-sm font-normal mb-1"
-                    style={{ color: 'var(--color-gray-600)' }}
+                    style={{ color: '#4b5563' }}
                   >
                     Date enregistrement
                   </p>
                   <p 
                     className="text-base font-medium"
-                    style={{ color: 'var(--color-gray-900)' }}
+                    style={{ color: '#111827' }}
                   >
                     20/01/2024
                   </p>
@@ -318,100 +343,182 @@ export default function CourrierDetail() {
               </div>
             </div>
 
-            {/* Département Section */}
-            <div>
-              <h2 
-                className="text-lg md:text-xl font-medium mb-4"
-                style={{ 
-                  color: 'var(--color-gray-700)',
-                  lineHeight: '20px'
-                }}
-              >
-                Département
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Porteur Column */}
-                <div>
-                  <h3 
-                    className="text-base font-semibold mb-4 underline"
-                    style={{ color: 'var(--color-gray-700)' }}
+            {/* Porteur Selection - Different UI based on role */}
+            {isDepartement ? (
+              /* Dropdown for Departement role */
+              <div className="space-y-6">
+                <div className="relative">
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="w-full px-8 py-5 text-left border rounded-md flex items-center justify-between transition-colors hover:border-gray-400"
+                    style={{
+                      borderColor: '#bbb7b7',
+                      backgroundColor: isDropdownOpen ? '#f9fafb' : '#ffffff'
+                    }}
                   >
-                    Porteur
-                  </h3>
-                  <div className="space-y-3">
-                    {departments.map((dept) => (
-                      <label 
-                        key={`porteur-${dept.id}`}
-                        className="flex items-center gap-3 cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={dept.porteur}
-                          onChange={() => handlePorteurChange(dept.id)}
-                          className="w-5 h-5 rounded border-2 border-(--color-gray-400) cursor-pointer"
+                    <span 
+                      className="text-2xl font-normal"
+                      style={{ 
+                        color: selectedPorteur ? '#111827' : '#868686',
+                        lineHeight: '24px'
+                      }}
+                    >
+                      {selectedPorteur || 'Selectionnez un porteur'}
+                    </span>
+                    <img 
+                      src="/icons/dropdown-arrow.svg" 
+                      alt="" 
+                      className="w-6 h-6 transition-transform"
+                      style={{
+                        filter: 'invert(85%) sepia(0%) saturate(0%) hue-rotate(168deg) brightness(96%) contrast(87%)',
+                        transform: isDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                      }}
+                    />
+                  </button>
+
+                  {/* Dropdown Options */}
+                  {isDropdownOpen && (
+                    <div 
+                      className="absolute top-full left-0 right-0 mt-1 bg-white border rounded-md overflow-hidden z-10"
+                      style={{
+                        borderColor: '#bbb7b7',
+                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)'
+                      }}
+                    >
+                      {porteurOptions.map((porteur, index) => (
+                        <button
+                          key={porteur}
+                          onClick={() => handlePorteurSelect(porteur)}
+                          className="w-full px-8 py-5 text-left transition-colors hover:bg-gray-50"
                           style={{
-                            accentColor: 'var(--color-gray-700)'
+                            borderBottom: index < porteurOptions.length - 1 ? '1px solid #e5e7eb' : 'none'
                           }}
-                        />
-                        <span 
-                          className="text-sm font-normal"
-                          style={{ color: 'var(--color-black)' }}
                         >
-                          {dept.label}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
+                          <span 
+                            className="text-2xl font-normal"
+                            style={{ 
+                              color: '#757575',
+                              lineHeight: '24px'
+                            }}
+                          >
+                            {porteur}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                {/* Contributeur Column */}
-                <div>
-                  <h3 
-                    className="text-base font-semibold mb-4 underline"
-                    style={{ color: 'var(--color-gray-700)' }}
-                  >
-                    Contributeur
-                  </h3>
-                  <div className="space-y-3">
-                    {departments.map((dept) => (
-                      <label 
-                        key={`contributeur-${dept.id}`}
-                        className="flex items-center gap-3 cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={dept.contributeur}
-                          onChange={() => handleContributeurChange(dept.id)}
-                          className="w-5 h-5 rounded border-2 border-(--color-gray-400) cursor-pointer"
-                          style={{
-                            accentColor: 'var(--color-gray-700)'
-                          }}
-                        />
-                        <span 
-                          className="text-sm font-normal"
-                          style={{ color: 'var(--color-black)' }}
-                        >
-                          {dept.label}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+                {/* Imputer Button */}
+                <button
+                  onClick={handleImputer}
+                  className="px-8 py-3 text-white font-medium rounded-sm hover:opacity-90 transition-opacity"
+                  style={{ 
+                    backgroundColor: '#f97316',
+                    fontSize: '16px'
+                  }}
+                >
+                  Imputer le courrier
+                </button>
               </div>
+            ) : (
+              /* Checkboxes for Directeur role */
+              <div>
+                <h2 
+                  className="text-xl font-medium mb-6"
+                  style={{ 
+                    color: '#374151',
+                    lineHeight: '20px'
+                  }}
+                >
+                  Département
+                </h2>
 
-              {/* Imputer Button */}
-              <button
-                onClick={handleImputer}
-                className="mt-6 px-8 py-3 text-white font-medium rounded-sm hover:opacity-90 transition-opacity"
-                style={{ 
-                  backgroundColor: 'var(--color-primary)',
-                  fontSize: '16px'
-                }}
-              >
-                Imputer le courrier
-              </button>
-            </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Porteur Column */}
+                  <div>
+                    <h3 
+                      className="text-base font-semibold mb-4 underline"
+                      style={{ color: '#374151' }}
+                    >
+                      Porteur
+                    </h3>
+                    <div className="space-y-3">
+                      {departments.map((dept) => (
+                        <label 
+                          key={`porteur-${dept.id}`}
+                          className="flex items-center gap-3 cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={dept.porteur}
+                            onChange={() => handlePorteurChange(dept.id)}
+                            className="w-5 h-5 rounded border-2 cursor-pointer"
+                            style={{
+                              borderColor: '#9ca3af',
+                              accentColor: '#374151'
+                            }}
+                          />
+                          <span 
+                            className="text-sm font-normal"
+                            style={{ color: '#000000' }}
+                          >
+                            {dept.label}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Contributeur Column */}
+                  <div>
+                    <h3 
+                      className="text-base font-semibold mb-4 underline"
+                      style={{ color: '#374151' }}
+                    >
+                      Contributeur
+                    </h3>
+                    <div className="space-y-3">
+                      {departments.map((dept) => (
+                        <label 
+                          key={`contributeur-${dept.id}`}
+                          className="flex items-center gap-3 cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={dept.contributeur}
+                            onChange={() => handleContributeurChange(dept.id)}
+                            className="w-5 h-5 rounded border-2 cursor-pointer"
+                            style={{
+                              borderColor: '#9ca3af',
+                              accentColor: '#374151'
+                            }}
+                          />
+                          <span 
+                            className="text-sm font-normal"
+                            style={{ color: '#000000' }}
+                          >
+                            {dept.label}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Imputer Button */}
+                <button
+                  onClick={handleImputer}
+                  className="mt-6 px-8 py-3 text-white font-medium rounded-sm hover:opacity-90 transition-opacity"
+                  style={{ 
+                    backgroundColor: '#f97316',
+                    fontSize: '16px'
+                  }}
+                >
+                  Imputer le courrier
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Right Column - Document PDF */}
@@ -419,11 +526,11 @@ export default function CourrierDetail() {
             <div>
               <div 
                 className="flex items-center justify-between px-4 py-3 mb-4"
-                style={{ backgroundColor: 'var(--color-gray-50)' }}
+                style={{ backgroundColor: '#f9fafb' }}
               >
                 <h3 
                   className="text-base font-semibold"
-                  style={{ color: 'var(--color-gray-900)' }}
+                  style={{ color: '#111827' }}
                 >
                   Document PDF
                 </h3>
@@ -435,7 +542,7 @@ export default function CourrierDetail() {
                     <img 
                       src="/icons/download.svg" 
                       alt="Download"
-                      className="w-3 h-3"
+                      className="w-3 h-3.5"
                       style={{ filter: 'invert(29%) sepia(8%) saturate(735%) hue-rotate(181deg) brightness(95%) contrast(86%)' }}
                     />
                   </button>
@@ -446,7 +553,7 @@ export default function CourrierDetail() {
                     <img 
                       src="/icons/print.svg" 
                       alt="Print"
-                      className="w-3 h-3"
+                      className="w-3.5 h-3.5"
                       style={{ filter: 'invert(29%) sepia(8%) saturate(735%) hue-rotate(181deg) brightness(95%) contrast(86%)' }}
                     />
                   </button>

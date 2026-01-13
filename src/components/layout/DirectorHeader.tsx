@@ -22,7 +22,7 @@ export default function DirectorHeader({ user }: DirectorHeaderProps) {
            <strong>Gestion des Courriers DCIRE</strong> 
           </h1>
           <p className="text-xs font-normal text-black font-display ml-10">
-            Espace DCIRE
+            Espace Departement
           </p>
         </div>
       </div>

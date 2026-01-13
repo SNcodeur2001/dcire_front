@@ -1,9 +1,10 @@
 import type { User } from '../../types';
 
-interface HeaderProps {
+interface DepartmentHeaderProps {
   user: User;
 }
-export default function Header({ user }: HeaderProps) {
+
+export default function DepartmentHeader({ user }: DepartmentHeaderProps) {
   return (
     <header 
       className="bg-white px-3 md:px-4 lg:px-6 py-2 md:py-3 flex items-center justify-between shrink-0"
@@ -21,7 +22,7 @@ export default function Header({ user }: HeaderProps) {
            <strong>Gestion des Courriers DCIRE</strong> 
           </h1>
           <p className="text-xs font-normal text-black font-display ml-10">
-            Espace Assistante
+            Espace Departement 
           </p>
         </div>
       </div>
