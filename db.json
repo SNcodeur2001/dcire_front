@@ -1,0 +1,377 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Ousseynou Sane",
+      "role": "director",
+      "avatar": "/avatar-user.jpg",
+      "email": "ousseynou.sane@sonatel.sn",
+      "departmentId": null,
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Marie Diop",
+      "role": "department",
+      "avatar": "/avatar-user.jpg",
+      "email": "marie.diop@sonatel.sn",
+      "departmentId": "2",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Ahmadou Diallo",
+      "role": "porteur",
+      "avatar": "/avatar-user.jpg",
+      "email": "ahmadou.diallo@sonatel.sn",
+      "departmentId": "2",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "Fatou Diop",
+      "role": "assistant",
+      "avatar": "/avatar-user.jpg",
+      "email": "fatou.diop@sonatel.sn",
+      "departmentId": null,
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+
+  "courriers": [
+    {
+      "id": "1",
+      "reference": "CR-2024-001",
+      "sender": "Ministère des Finances",
+      "senderPhone": "+221331234567",
+      "senderEmail": "contact@finance.gouv.sn",
+      "subject": "Demande de partenariat stratégique pour le développement des infrastructures numériques",
+      "receptionDate": "2024-01-15",
+      "registrationDate": "2024-01-15T10:30:00.000Z",
+      "type": "officiel",
+      "priority": "priority",
+      "workflowStatus": "pending",
+      "assignedDepartmentId": null,
+      "assignedPorteurId": null,
+      "deadline": "2024-01-25T00:00:00.000Z",
+      "escalationLevel": 0,
+      "tags": ["partenariat", "infrastructure", "numerique"],
+      "duration": 10,
+      "createdBy": "4",
+      "createdAt": "2024-01-15T10:30:00.000Z",
+      "updatedAt": "2024-01-15T10:30:00.000Z",
+      "documentUrl": "/documents/CR-2024-001.pdf",
+      "responses": []
+    },
+    {
+      "id": "2",
+      "reference": "CR-2024-002",
+      "sender": "Ministère de l'Éducation",
+      "senderPhone": "+221332345678",
+      "senderEmail": "contact@education.gouv.sn",
+      "subject": "Proposition de collaboration pour l'éducation numérique",
+      "receptionDate": "2024-01-16",
+      "registrationDate": "2024-01-16T09:15:00.000Z",
+      "type": "administratif",
+      "priority": "normal",
+      "workflowStatus": "assigned",
+      "assignedDepartmentId": "2",
+      "assignedPorteurId": null,
+      "deadline": "2024-01-31T00:00:00.000Z",
+      "escalationLevel": 0,
+      "tags": ["education", "collaboration", "numerique"],
+      "duration": 15,
+      "createdBy": "4",
+      "createdAt": "2024-01-16T09:15:00.000Z",
+      "updatedAt": "2024-01-18T14:20:00.000Z",
+      "documentUrl": "/documents/CR-2024-002.pdf",
+      "responses": []
+    },
+    {
+      "id": "3",
+      "reference": "CR-2024-003",
+      "sender": "Entreprise Tech SA",
+      "senderPhone": "+221773456789",
+      "senderEmail": "contact@tech-sa.sn",
+      "subject": "Demande de sponsoring pour événement technologique",
+      "receptionDate": "2024-01-17",
+      "registrationDate": "2024-01-17T11:45:00.000Z",
+      "type": "commercial",
+      "priority": "priority",
+      "workflowStatus": "in_progress",
+      "assignedDepartmentId": "2",
+      "assignedPorteurId": "3",
+      "deadline": "2024-01-27T00:00:00.000Z",
+      "escalationLevel": 1,
+      "tags": ["sponsoring", "evenement", "technologique"],
+      "duration": 10,
+      "createdBy": "4",
+      "createdAt": "2024-01-17T11:45:00.000Z",
+      "updatedAt": "2024-01-22T10:00:00.000Z",
+      "documentUrl": "/documents/CR-2024-003.pdf",
+      "responses": [
+        {
+          "id": "1",
+          "type": "positive",
+          "data": {
+            "typeDemande": "sponsoring",
+            "natureReponse": "numeraire",
+            "montant": "5000000",
+            "description": "Sponsoring pour événement annuel"
+          },
+          "attachments": ["/responses/CR-2024-003-response.pdf"],
+          "submittedBy": "3",
+          "submittedAt": "2024-01-22T10:00:00.000Z",
+          "status": "approved"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "reference": "CR-2024-004",
+      "sender": "Ministère de la Santé",
+      "senderPhone": "+221335678901",
+      "senderEmail": "contact@sante.gouv.sn",
+      "subject": "Demande d'information sur les services de télécommunications",
+      "receptionDate": "2024-01-18",
+      "registrationDate": "2024-01-18T08:30:00.000Z",
+      "type": "officiel",
+      "priority": "normal",
+      "workflowStatus": "settled",
+      "assignedDepartmentId": "2",
+      "assignedPorteurId": "3",
+      "deadline": "2024-02-02T00:00:00.000Z",
+      "escalationLevel": 0,
+      "tags": ["information", "telecommunications", "sante"],
+      "duration": 15,
+      "createdBy": "4",
+      "settledAt": "2024-01-25T14:30:00.000Z",
+      "createdAt": "2024-01-18T08:30:00.000Z",
+      "updatedAt": "2024-01-25T14:30:00.000Z",
+      "documentUrl": "/documents/CR-2024-004.pdf",
+      "responses": [
+        {
+          "id": "2",
+          "type": "information",
+          "data": {
+            "message": "Documentation complète fournie sur les services disponibles",
+            "documentsFournis": ["catalogue_services.pdf", "tarifs_sante.pdf"]
+          },
+          "attachments": ["/responses/CR-2024-004-info.pdf"],
+          "submittedBy": "3",
+          "submittedAt": "2024-01-25T14:30:00.000Z",
+          "status": "completed"
+        }
+      ]
+    }
+  ],
+
+  "departments": [
+    {
+      "id": "1",
+      "name": "Direction Générale",
+      "code": "DG",
+      "managerId": "1",
+      "description": "Direction stratégique et exécutive",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Département Commercial",
+      "code": "DC",
+      "managerId": "2",
+      "description": "Gestion commerciale et partenariats",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Département Technique",
+      "code": "DT",
+      "managerId": "5",
+      "description": "Support technique et infrastructure",
+      "isActive": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+
+  "stats": [
+    {
+      "id": "1",
+      "userId": "1",
+      "role": "director",
+      "period": "monthly",
+      "date": "2024-01",
+      "metrics": {
+        "totalReceived": 45,
+        "totalAssigned": 42,
+        "totalPending": 3,
+        "totalSettled": 38,
+        "totalOverdue": 2,
+        "averageProcessingTime": 8.5
+      },
+      "lastUpdated": "2024-01-23T12:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "userId": "2",
+      "role": "department",
+      "period": "monthly",
+      "date": "2024-01",
+      "metrics": {
+        "totalReceived": 12,
+        "totalInProgress": 3,
+        "totalSettled": 8,
+        "totalPending": 1,
+        "averageProcessingTime": 6.2
+      },
+      "lastUpdated": "2024-01-23T12:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "userId": "3",
+      "role": "porteur",
+      "period": "monthly",
+      "date": "2024-01",
+      "metrics": {
+        "totalAssigned": 8,
+        "totalInProgress": 2,
+        "totalSettled": 6,
+        "averageProcessingTime": 4.8
+      },
+      "lastUpdated": "2024-01-23T12:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "userId": "4",
+      "role": "assistant",
+      "period": "monthly",
+      "date": "2024-01",
+      "metrics": {
+        "totalCreated": 47,
+        "totalPriority": 12,
+        "totalNormal": 35
+      },
+      "lastUpdated": "2024-01-23T12:00:00.000Z"
+    }
+  ],
+
+  "notifications": [
+    {
+      "id": "1",
+      "userId": "1",
+      "type": "new_courrier",
+      "title": "Nouveau courrier prioritaire",
+      "message": "Un nouveau courrier prioritaire a été reçu : CR-2024-001",
+      "courrierId": "1",
+      "isRead": false,
+      "priority": "high",
+      "createdAt": "2024-01-15T10:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "userId": "2",
+      "type": "assignment",
+      "title": "Courrier assigné",
+      "message": "Le courrier CR-2024-002 vous a été assigné",
+      "courrierId": "2",
+      "isRead": true,
+      "priority": "medium",
+      "createdAt": "2024-01-18T14:20:00.000Z"
+    },
+    {
+      "id": "3",
+      "userId": "3",
+      "type": "deadline_warning",
+      "title": "Échéance proche",
+      "message": "Le courrier CR-2024-003 arrive à échéance dans 3 jours",
+      "courrierId": "3",
+      "isRead": false,
+      "priority": "high",
+      "createdAt": "2024-01-22T09:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "userId": "1",
+      "type": "courrier_settled",
+      "title": "Courrier soldé",
+      "message": "Le courrier CR-2024-004 a été traité et soldé",
+      "courrierId": "4",
+      "isRead": false,
+      "priority": "low",
+      "createdAt": "2024-01-25T14:30:00.000Z"
+    }
+  ],
+
+  "logs": [
+    {
+      "id": "1",
+      "courrierId": "1",
+      "action": "created",
+      "description": "Courrier créé par l'assistante",
+      "userId": "4",
+      "userRole": "assistant",
+      "timestamp": "2024-01-15T10:30:00.000Z",
+      "metadata": {
+        "sender": "Ministère des Finances",
+        "priority": "priority"
+      }
+    },
+    {
+      "id": "2",
+      "courrierId": "2",
+      "action": "assigned",
+      "description": "Courrier assigné au département Commercial",
+      "userId": "1",
+      "userRole": "director",
+      "timestamp": "2024-01-18T14:20:00.000Z",
+      "metadata": {
+        "departmentId": "2",
+        "departmentName": "Département Commercial"
+      }
+    },
+    {
+      "id": "3",
+      "courrierId": "3",
+      "action": "assigned_to_porteur",
+      "description": "Courrier assigné au porteur Ahmadou Diallo",
+      "userId": "2",
+      "userRole": "department",
+      "timestamp": "2024-01-20T16:30:00.000Z",
+      "metadata": {
+        "porteurId": "3",
+        "porteurName": "Ahmadou Diallo"
+      }
+    },
+    {
+      "id": "4",
+      "courrierId": "3",
+      "action": "response_submitted",
+      "description": "Réponse positive soumise pour sponsoring",
+      "userId": "3",
+      "userRole": "porteur",
+      "timestamp": "2024-01-22T10:00:00.000Z",
+      "metadata": {
+        "responseType": "positive",
+        "montant": "5000000"
+      }
+    },
+    {
+      "id": "5",
+      "courrierId": "4",
+      "action": "settled",
+      "description": "Courrier marqué comme soldé",
+      "userId": "3",
+      "userRole": "porteur",
+      "timestamp": "2024-01-25T14:30:00.000Z",
+      "metadata": {
+        "processingTime": 7
+      }
+    }
+  ]
+}
