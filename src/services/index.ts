@@ -51,5 +51,42 @@ export const api = {
 
   async getUserNotifications(userId: string, unreadOnly = false) {
     return notificationsService.getByUser(userId, unreadOnly);
+  },
+
+  // Endpoint unifié pour le tableau de bord directeur
+  async getDirectorDashboardData() {
+    try {
+      const [userResult, statsResult, courriersResult, allCourriersResult] = await Promise.all([
+        usersService.getById("1"),
+        statsService.getByUser("1"),
+        courriersService.getPending(),
+        courriersService.getAll()
+      ]);
+
+      if (userResult.error || statsResult.error || courriersResult.error || allCourriersResult.error) {
+        return {
+          data: null,
+          error: userResult.error || statsResult.error || courriersResult.error || allCourriersResult.error
+        };
+      }
+
+      // Calcul du nombre journalier
+      const today = new Date().toISOString().split('T')[0];
+      const dailyCount = (allCourriersResult.data || []).filter(c => c.receptionDate === today).length;
+
+      // Stats mensuelles
+      const monthlyStats = statsResult.data?.find((s: any) => s.period === 'monthly');
+
+      return {
+        data: {
+          user: userResult.data,
+          stats: monthlyStats,
+          pendingCourriers: courriersResult.data || [],
+          dailyCount
+        }
+      };
+    } catch (error) {
+      return { data: null, error: 'Erreur lors du chargement des données du tableau de bord' };
+    }
   }
 };

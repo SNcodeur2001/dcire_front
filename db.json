@@ -41,29 +41,32 @@
       "createdAt": "2024-01-01T00:00:00.000Z"
     }
   ],
-
   "courriers": [
     {
       "id": "1",
       "reference": "CR-2024-001",
       "sender": "Ministère des Finances",
-      "senderPhone": "+221331234567",
-      "senderEmail": "contact@finance.gouv.sn",
-      "subject": "Demande de partenariat stratégique pour le développement des infrastructures numériques",
+      "senderPhone": "+221332345678",
+      "senderEmail": "contact@finances.gouv.sn",
+      "subject": "Demande d'information sur les services financiers",
       "receptionDate": "2024-01-15",
       "registrationDate": "2024-01-15T10:30:00.000Z",
       "type": "officiel",
       "priority": "priority",
-      "workflowStatus": "pending",
-      "assignedDepartmentId": null,
+      "workflowStatus": "assigned",
+      "assignedDepartmentId": "1",
       "assignedPorteurId": null,
-      "deadline": "2024-01-25T00:00:00.000Z",
+      "deadline": "2024-01-30T00:00:00.000Z",
       "escalationLevel": 0,
-      "tags": ["partenariat", "infrastructure", "numerique"],
-      "duration": 10,
+      "tags": [
+        "finances",
+        "information",
+        "officiel"
+      ],
+      "duration": 12,
       "createdBy": "4",
       "createdAt": "2024-01-15T10:30:00.000Z",
-      "updatedAt": "2024-01-15T10:30:00.000Z",
+      "updatedAt": "2026-01-28T16:00:19.396Z",
       "documentUrl": "/documents/CR-2024-001.pdf",
       "responses": []
     },
@@ -79,16 +82,76 @@
       "type": "administratif",
       "priority": "normal",
       "workflowStatus": "assigned",
-      "assignedDepartmentId": "2",
+      "assignedDepartmentId": null,
       "assignedPorteurId": null,
       "deadline": "2024-01-31T00:00:00.000Z",
       "escalationLevel": 0,
-      "tags": ["education", "collaboration", "numerique"],
+      "tags": [
+        "education",
+        "collaboration",
+        "numerique"
+      ],
       "duration": 15,
       "createdBy": "4",
       "createdAt": "2024-01-16T09:15:00.000Z",
       "updatedAt": "2024-01-18T14:20:00.000Z",
       "documentUrl": "/documents/CR-2024-002.pdf",
+      "responses": []
+    },
+    {
+      "id": "5",
+      "reference": "CR-2024-005",
+      "sender": "Cabinet du Premier Ministre",
+      "senderPhone": "+221332345679",
+      "senderEmail": "contact@primature.gouv.sn",
+      "subject": "Demande d'audit des services de télécommunications",
+      "receptionDate": "2024-01-19",
+      "registrationDate": "2024-01-19T10:00:00.000Z",
+      "type": "officiel",
+      "priority": "priority",
+      "workflowStatus": "assigned",
+      "assignedDepartmentId": null,
+      "assignedPorteurId": null,
+      "deadline": "2024-02-05T00:00:00.000Z",
+      "escalationLevel": 0,
+      "tags": [
+        "audit",
+        "telecommunications",
+        "officiel"
+      ],
+      "duration": 18,
+      "createdBy": "4",
+      "createdAt": "2024-01-19T10:00:00.000Z",
+      "updatedAt": "2024-01-19T10:00:00.000Z",
+      "documentUrl": "/documents/CR-2024-005.pdf",
+      "responses": []
+    },
+    {
+      "id": "6",
+      "reference": "CR-2024-006",
+      "sender": "Ministère du Commerce",
+      "senderPhone": "+221332345680",
+      "senderEmail": "contact@commerce.gouv.sn",
+      "subject": "Proposition de partenariat commercial",
+      "receptionDate": "2024-01-20",
+      "registrationDate": "2024-01-20T14:30:00.000Z",
+      "type": "commercial",
+      "priority": "normal",
+      "workflowStatus": "assigned",
+      "assignedDepartmentId": null,
+      "assignedPorteurId": null,
+      "deadline": "2024-02-10T00:00:00.000Z",
+      "escalationLevel": 0,
+      "tags": [
+        "partenariat",
+        "commerce",
+        "commercial"
+      ],
+      "duration": 12,
+      "createdBy": "4",
+      "createdAt": "2024-01-20T14:30:00.000Z",
+      "updatedAt": "2024-01-20T14:30:00.000Z",
+      "documentUrl": "/documents/CR-2024-006.pdf",
       "responses": []
     },
     {
@@ -107,7 +170,11 @@
       "assignedPorteurId": "3",
       "deadline": "2024-01-27T00:00:00.000Z",
       "escalationLevel": 1,
-      "tags": ["sponsoring", "evenement", "technologique"],
+      "tags": [
+        "sponsoring",
+        "evenement",
+        "technologique"
+      ],
       "duration": 10,
       "createdBy": "4",
       "createdAt": "2024-01-17T11:45:00.000Z",
@@ -123,7 +190,9 @@
             "montant": "5000000",
             "description": "Sponsoring pour événement annuel"
           },
-          "attachments": ["/responses/CR-2024-003-response.pdf"],
+          "attachments": [
+            "/responses/CR-2024-003-response.pdf"
+          ],
           "submittedBy": "3",
           "submittedAt": "2024-01-22T10:00:00.000Z",
           "status": "approved"
@@ -146,7 +215,11 @@
       "assignedPorteurId": "3",
       "deadline": "2024-02-02T00:00:00.000Z",
       "escalationLevel": 0,
-      "tags": ["information", "telecommunications", "sante"],
+      "tags": [
+        "information",
+        "telecommunications",
+        "sante"
+      ],
       "duration": 15,
       "createdBy": "4",
       "settledAt": "2024-01-25T14:30:00.000Z",
@@ -159,17 +232,49 @@
           "type": "information",
           "data": {
             "message": "Documentation complète fournie sur les services disponibles",
-            "documentsFournis": ["catalogue_services.pdf", "tarifs_sante.pdf"]
+            "documentsFournis": [
+              "catalogue_services.pdf",
+              "tarifs_sante.pdf"
+            ]
           },
-          "attachments": ["/responses/CR-2024-004-info.pdf"],
+          "attachments": [
+            "/responses/CR-2024-004-info.pdf"
+          ],
           "submittedBy": "3",
           "submittedAt": "2024-01-25T14:30:00.000Z",
           "status": "completed"
         }
       ]
+    },
+    {
+      "id": "8",
+      "reference": "CR-2024-008",
+      "sender": "Ministère de l'Environnement",
+      "senderPhone": "+221332345682",
+      "senderEmail": "contact@environnement.gouv.sn",
+      "subject": "Proposition de projet environnemental",
+      "receptionDate": "2024-01-22",
+      "registrationDate": "2024-01-22T11:15:00.000Z",
+      "type": "administratif",
+      "priority": "normal",
+      "workflowStatus": "assigned",
+      "assignedDepartmentId": "1",
+      "assignedPorteurId": null,
+      "deadline": "2024-02-20T00:00:00.000Z",
+      "escalationLevel": 0,
+      "tags": [
+        "environnement",
+        "projet",
+        "ecologique"
+      ],
+      "duration": 16,
+      "createdBy": "4",
+      "createdAt": "2024-01-22T11:15:00.000Z",
+      "updatedAt": "2026-01-28T23:30:52.592Z",
+      "documentUrl": "/documents/CR-2024-008.pdf",
+      "responses": []
     }
   ],
-
   "departments": [
     {
       "id": "1",
@@ -199,7 +304,6 @@
       "createdAt": "2024-01-01T00:00:00.000Z"
     }
   ],
-
   "stats": [
     {
       "id": "1",
@@ -208,12 +312,12 @@
       "period": "monthly",
       "date": "2024-01",
       "metrics": {
-        "totalReceived": 45,
-        "totalAssigned": 42,
-        "totalPending": 3,
-        "totalSettled": 38,
-        "totalOverdue": 2,
-        "averageProcessingTime": 8.5
+        "totalReceived": 4,
+        "totalAssigned": 3,
+        "totalPending": 0,
+        "totalSettled": 1,
+        "totalOverdue": 0,
+        "averageProcessingTime": 13
       },
       "lastUpdated": "2024-01-23T12:00:00.000Z"
     },
@@ -260,7 +364,6 @@
       "lastUpdated": "2024-01-23T12:00:00.000Z"
     }
   ],
-
   "notifications": [
     {
       "id": "1",
@@ -307,7 +410,6 @@
       "createdAt": "2024-01-25T14:30:00.000Z"
     }
   ],
-
   "logs": [
     {
       "id": "1",

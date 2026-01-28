@@ -19,6 +19,51 @@ export class StatsService extends BaseService<Stats> {
   }
 
   async getByUser(userId: string): Promise<ApiResponse<Stats[]>> {
+    // Pour le directeur, calculer les stats dynamiquement depuis les courriers
+    if (userId === "1") {
+      try {
+        // Importer courriersService pour calculer les métriques
+        const { courriersService } = await import('../courriers');
+        const courriersResult = await courriersService.getAll();
+
+        if (courriersResult.error || !courriersResult.data) {
+          return { data: null, error: courriersResult.error || 'Erreur lors du calcul des stats' };
+        }
+
+        const courriers = courriersResult.data;
+        const totalReceived = courriers.length;
+        const totalAssigned = courriers.filter(c => c.workflowStatus === 'assigned' || c.workflowStatus === 'in_progress').length;
+        const totalPending = courriers.filter(c => c.workflowStatus === 'pending').length;
+        const totalSettled = courriers.filter(c => c.workflowStatus === 'settled').length;
+        const totalOverdue = courriers.filter(c => c.workflowStatus !== 'settled' && new Date(c.deadline) < new Date()).length;
+        const averageProcessingTime = courriers.length > 0
+          ? Math.round(courriers.reduce((sum, c) => sum + c.duration, 0) / courriers.length * 10) / 10
+          : 0;
+
+        const stats: Stats = {
+          id: "1",
+          userId: "1",
+          role: "director",
+          period: "monthly",
+          date: new Date().toISOString().slice(0, 7), // YYYY-MM
+          metrics: {
+            totalReceived,
+            totalAssigned,
+            totalPending,
+            totalSettled,
+            totalOverdue,
+            averageProcessingTime
+          },
+          lastUpdated: new Date().toISOString()
+        };
+
+        return { data: [stats] };
+      } catch (error) {
+        return { data: null, error: 'Erreur lors du calcul des statistiques' };
+      }
+    }
+
+    // Pour les autres utilisateurs, retourner les stats stockées
     return this.getAll({ userId });
   }
 

@@ -19,7 +19,7 @@ export abstract class BaseRepository<T extends { id: string }> implements IRepos
   }
 
   async update(id: string, data: Partial<T>): Promise<ApiResponse<T>> {
-    return this.httpClient.put<T>(`${this.endpoint}/${id}`, data);
+    return this.httpClient.patch<T>(`${this.endpoint}/${id}`, data);
   }
 
   async delete(id: string): Promise<ApiResponse<void>> {

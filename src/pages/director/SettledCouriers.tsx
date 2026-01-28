@@ -1,48 +1,94 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DirectorLayout from '../../components/layout/DirectorLayout';
 import DirectorDataTable from '../../components/director/DirectorDataTable';
 import Pagination from '../../components/ui/Pagination';
-import type { DirectorMail } from '../../types';
-
-const mockMails: DirectorMail[] = [
-  {
-    id: '9',
-    reference: 'CR-2024-009',
-    sender: 'Ministère des Finances',
-    subject: 'Demande de partenariat stratégique',
-    receptionDate: '15/01/2024',
-    status: 'Soldé',
-  },
-  {
-    id: '10',
-    reference: 'CR-2024-010',
-    sender: 'Ministère des Finances',
-    subject: 'Demande de partenariat stratégique',
-    receptionDate: '15/01/2024',
-    status: 'Soldé',
-  },
-  {
-    id: '11',
-    reference: 'CR-2024-011',
-    sender: 'Ministère des Finances',
-    subject: 'Demande de partenariat stratégique',
-    receptionDate: '15/01/2024',
-    status: 'Soldé',
-  },
-  {
-    id: '12',
-    reference: 'CR-2024-012',
-    sender: 'Ministère des Finances',
-    subject: 'Demande de partenariat stratégique',
-    receptionDate: '15/01/2024',
-    status: 'soldé',
-  },
-];
+import { api } from '../../services';
+// import type { DirectorMail } from '../../types';
+import type { Courrier } from '../../types/api';
 
 export default function SettledCouriers() {
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(2);
+  const [courriers, setCourriers] = useState<Courrier[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const fetchCourriers = async () => {
+      try {
+        // Fetch settled courriers
+        const result = await api.courriers.getSettled();
+        if (result.error) {
+          setError(result.error);
+        } else {
+          setCourriers(result.data || []);
+        }
+      } catch (err) {
+        setError('Erreur lors du chargement des courriers');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourriers();
+  }, []);
+
+  if (loading) {
+    return (
+      <DirectorLayout>
+        <div className="h-full flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Chargement des courriers soldés...</p>
+        </div>
+      </DirectorLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DirectorLayout>
+        <div className="h-full flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-red-500 mb-4">
+              <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+            <p className="text-gray-600">Erreur: {error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Réessayer
+            </button>
+          </div>
+        </div>
+      </DirectorLayout>
+    );
+  }
+
+  if (courriers.length === 0) {
+    return (
+      <DirectorLayout>
+        <div className="h-full flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-gray-400 mb-4">
+              <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              Aucun courrier soldé
+            </h3>
+            <p className="text-gray-500">
+              Aucun courrier n'a encore été traité et soldé par les porteurs.
+            </p>
+          </div>
+        </div>
+      </DirectorLayout>
+    );
+  }
 
   return (
     <DirectorLayout>
@@ -78,10 +124,17 @@ export default function SettledCouriers() {
         {/* Data Table */}
         <div className="flex-1 min-h-0 flex flex-col">
           <div className="flex-1 min-h-0">
-            <DirectorDataTable 
+            <DirectorDataTable
               title="Liste des Courriers soldés"
-              subtitle="Votre mission principale : vérifier et valider les données extraites"
-              mails={mockMails}
+              subtitle={`Votre mission principale : vérifier et valider les données extraites (${courriers.length} courriers)`}
+              mails={courriers.map(c => ({
+                id: c.id,
+                reference: c.reference,
+                sender: c.sender,
+                subject: c.subject,
+                receptionDate: c.receptionDate,
+                status: 'soldé'
+              }))}
               statusType="soldé"
             />
           </div>
