@@ -4,7 +4,7 @@ import DirectorLayout from '../../components/layout/DirectorLayout';
 import DirectorDataTable from '../../components/director/DirectorDataTable';
 import Pagination from '../../components/ui/Pagination';
 import { api } from '../../services';
-import type { DirectorMail } from '../../types';
+// import type { DirectorMail } from '../../types';
 import type { Courrier } from '../../types/api';
 
 export default function ImputedCouriers() {
