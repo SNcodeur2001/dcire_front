@@ -4,6 +4,7 @@ export { usersService } from './users';
 export { statsService } from './stats';
 export { notificationsService } from './notifications';
 export { httpClient } from './httpClient';
+export { authService } from './auth/AuthService';
 
 // Ré-export des types pour commodité
 export type {

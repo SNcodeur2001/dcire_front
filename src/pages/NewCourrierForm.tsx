@@ -2,25 +2,88 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '../components/layout/MainLayout';
 import Button from '../components/ui/Button';
+import FileUploadZone from '../components/upload/FileUploadZone';
 import type { CourrierFormData } from '../types';
+import { api } from '../services';
 
 export default function NewCourrierForm() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<CourrierFormData>({
-    sender: "Ministère de l'Économie",
-    phone: '+221 77 123 45 67',
+    sender: '',
+    phone: '',
     email: '',
     receptionDate: '',
     type: '',
     priority: false,
-    subject: 'Demande de collaboration pour le développement des infrastructures numériques',
+    subject: '',
   });
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form data:', formData);
-    navigate('/dashboard');
+
+    if (!uploadedFile) {
+      alert('Veuillez télécharger un document PDF');
+      return;
+    }
+
+    // Generate unique reference
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const existingCourriers = await api.courriers.getAll();
+    const nextId = existingCourriers.data ? existingCourriers.data.length + 1 : 1;
+    const reference = `CR-${year}-${String(nextId).padStart(3, '0')}`;
+
+    // Simulate file upload by copying to public/documents
+    // In a real app, this would be done on the server
+    const fileName = `${reference}.pdf`;
+    const filePath = `/documents/${fileName}`;
+
+    // For demo purposes, we'll store the file in localStorage as base64
+    // In production, this would be uploaded to a server
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64Data = event.target?.result as string;
+      // Store file in localStorage for demo
+      localStorage.setItem(`pdf_${reference}`, base64Data);
+
+      // Create courrier object
+      const courrierData = {
+        id: String(nextId),
+        reference,
+        sender: formData.sender,
+        senderPhone: formData.phone,
+        senderEmail: formData.email,
+        subject: formData.subject,
+        receptionDate: formData.receptionDate,
+        registrationDate: now.toISOString(),
+        type: formData.type as 'officiel' | 'administratif' | 'commercial',
+        priority: (formData.priority ? 'priority' : 'normal') as 'priority' | 'normal',
+        workflowStatus: 'pending' as 'pending' | 'assigned' | 'in_progress' | 'settled',
+        assignedDepartmentId: null,
+        assignedPorteurId: null,
+        deadline: new Date(now.getTime() + 15 * 24 * 60 * 60 * 1000).toISOString(), // 15 days from now
+        escalationLevel: 0,
+        tags: [formData.type],
+        duration: 15,
+        createdBy: '4', // Assistant ID
+        createdAt: now.toISOString(),
+        updatedAt: now.toISOString(),
+        documentUrl: filePath,
+        responses: []
+      };
+
+      try {
+        await api.courriers.create(courrierData);
+        navigate('/dashboard');
+      } catch (error) {
+        console.error('Error creating courrier:', error);
+        alert('Erreur lors de la création du courrier');
+      }
+    };
+    reader.readAsDataURL(uploadedFile);
   };
 
   const handleReset = () => {
@@ -205,7 +268,7 @@ export default function NewCourrierForm() {
 
               {/* Priorité */}
               <div className="flex items-center gap-2 md:gap-3">
-                <label 
+                <label
                   className="text-xs md:text-sm font-medium"
                   style={{ color: 'var(--color-black)' }}
                 >
@@ -215,13 +278,19 @@ export default function NewCourrierForm() {
                   type="button"
                   onClick={() => setFormData({ ...formData, priority: !formData.priority })}
                   className={`w-4 h-4 md:w-5 md:h-5 rounded-full border-2 transition-colors ${
-                    formData.priority 
-                      ? 'border-(--color-gray-600) bg-(--color-gray-600)' 
+                    formData.priority
+                      ? 'border-(--color-gray-600) bg-(--color-gray-600)'
                       : 'border-(--color-gray-600)'
                   }`}
                   aria-label="Toggle priority"
                 />
               </div>
+
+              {/* File Upload */}
+              <FileUploadZone onFileSelect={(file) => {
+                setUploadedFile(file);
+                setPreviewUrl(URL.createObjectURL(file));
+              }} />
 
               {/* Action Buttons */}
               <div className="flex gap-3 md:gap-4 pt-2 md:pt-4">

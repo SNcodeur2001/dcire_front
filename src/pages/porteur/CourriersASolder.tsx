@@ -41,6 +41,7 @@ const mockMails: DirectorMail[] = [
 export default function CourriersASolder() {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(2);
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const totalPages = 3;
 
   return (
@@ -240,17 +241,46 @@ export default function CourriersASolder() {
                       </span>
                     </td>
                     <td className="px-3 md:px-4 lg:px-6 py-2 md:py-3 lg:py-4">
-                      <button 
-                        onClick={() => navigate(`/porteur/courrier/${mail.id}`)}
-                        className="hover:opacity-70 transition-opacity"
-                        aria-label="Voir les détails"
-                      >
-                        <img 
-                          src="/icons/eye.svg" 
-                          alt="" 
-                          className="w-3 h-2 md:w-4 md:h-2.5"
-                        />
-                      </button>
+                      <div className="relative">
+                        <button 
+                          onClick={() => setOpenMenuId(openMenuId === mail.id ? null : mail.id)}
+                          className="hover:opacity-70 transition-opacity"
+                          aria-label="Voir les options"
+                        >
+                          <img 
+                            src="/icons/eye.svg" 
+                            alt="" 
+                            className="w-3 h-2 md:w-4 md:h-2.5"
+                          />
+                        </button>
+                        {openMenuId === mail.id && (
+                          <div 
+                            className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-100"
+                            style={{ boxShadow: '0px 10px 15px rgba(0, 0, 0, 0.10), 0px 4px 6px rgba(0, 0, 0, 0.10)' }}
+                          >
+                            <button
+                              onClick={() => {
+                                navigate(`/porteur/courrier/${mail.id}`);
+                                setOpenMenuId(null);
+                              }}
+                              className="w-full text-left px-4 py-2.5 text-sm font-medium hover:bg-gray-50 transition-colors border-b border-gray-100"
+                              style={{ color: '#111827' }}
+                            >
+                              Voir les détails
+                            </button>
+                            <button
+                              onClick={() => {
+                                navigate(`/porteur/courrier-consultatif/${mail.id}`);
+                                setOpenMenuId(null);
+                              }}
+                              className="w-full text-left px-4 py-2.5 text-sm font-medium hover:bg-gray-50 transition-colors"
+                              style={{ color: '#111827' }}
+                            >
+                              Voir plus (Consultatif)
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}

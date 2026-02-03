@@ -1,26 +1,50 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import HomeIcon from '../assets/home-icon-login.svg?react'
+import { useAuth } from '../context/AuthContext'
 
 function Login() {
   const navigate = useNavigate()
+  const { isAuthenticated, user, login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState<'assistante' | 'directeur' | 'departement' | 'porteur'>('assistante')
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Rediriger si déjà connecté
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      if (user.role === 'director') {
+        navigate('/directeur/tableau-de-bord', { replace: true })
+      } else if (user.role === 'department') {
+        navigate('/departement/tableau-de-bord', { replace: true })
+      } else if (user.role === 'porteur') {
+        navigate('/porteur/tableau-de-bord', { replace: true })
+      } else if (user.role === 'assistant') {
+        navigate('/dashboard', { replace: true })
+      }
+    }
+  }, [isAuthenticated, user, navigate])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle login logic here
-    console.log('Login attempt:', { email, password, role })
-    // Redirect to appropriate dashboard based on role
-    if (role === 'directeur') {
-      navigate('/directeur/tableau-de-bord')
-    } else if (role === 'departement') {
-      navigate('/departement/tableau-de-bord')
-    } else if (role === 'porteur') {
-      navigate('/porteur/tableau-de-bord')
-    } else {
-      navigate('/dashboard')
+    setError(null)
+    setIsLoading(true)
+
+    try {
+      const result = await login({ email, password })
+      
+      if (result.error) {
+        setError(result.error)
+        setIsLoading(false)
+        return
+      }
+
+      // Le contexte s'est mis à jour automatiquement, donc le useEffect va déclencher la redirection
+    } catch (err) {
+      setError('Erreur lors de la connexion')
+      console.error('Login error:', err)
+      setIsLoading(false)
     }
   }
 
@@ -85,49 +109,26 @@ function Login() {
 
         {/* Login Form */}
         <form onSubmit={handleSubmit}>
-          {/* Role Selection */}
-          <fieldset
-            className="mb-5 md:mb-6"
-            style={{
-              border: '1px solid #9d9d9d',
-              borderRadius: '8px',
-              padding: '0.75rem 1rem md:1rem md:1.5rem'
-            }}
-          >
-            <legend
+          {/* Error Message */}
+          {error && (
+            <div
+              className="mb-5 md:mb-6 p-4 rounded-lg"
               style={{
-                fontSize: 'clamp(16px, 3vw, 20px)',
-                fontWeight: '500',
-                color: '#939393',
-                padding: '0 8px',
-                fontFamily: 'Roboto, sans-serif',
-                lineHeight: '1.2'
+                backgroundColor: '#fee',
+                borderLeft: '4px solid #ea580c'
               }}
             >
-              Rôle
-            </legend>
-            <select
-              id="role"
-              value={role}
-              onChange={(e) => setRole(e.target.value as 'assistante' | 'directeur' | 'departement' | 'porteur')}
-              required
-              style={{
-                border: 'none',
-                outline: 'none',
-                width: '100%',
-                fontSize: 'clamp(14px, 2.5vw, 16px)',
-                padding: '0.5rem 0',
-                fontFamily: 'Roboto, sans-serif',
-                backgroundColor: 'transparent',
-                cursor: 'pointer'
-              }}
-            >
-              <option value="assistante">Assistante</option>
-              <option value="directeur">Directeur</option>
-              <option value="departement">Département</option>
-              <option value="porteur">Porteur</option>
-            </select>
-          </fieldset>
+              <p
+                style={{
+                  color: '#c33',
+                  fontSize: 'clamp(14px, 2.5vw, 16px)',
+                  fontFamily: 'Roboto, sans-serif'
+                }}
+              >
+                {error}
+              </p>
+            </div>
+          )}
 
           {/* Email Field */}
           <fieldset
@@ -208,7 +209,8 @@ function Login() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-4 md:py-5 text-white transition-all duration-300 hover:scale-[1.02]"
+            disabled={isLoading}
+            className="w-full py-4 md:py-5 text-white transition-all duration-300 hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
             style={{
               backgroundColor: '#ea580c',
               borderRadius: '8px',
@@ -218,7 +220,7 @@ function Login() {
               fontFamily: 'Roboto, sans-serif'
             }}
           >
-            Se connecter
+            {isLoading ? 'Connexion en cours...' : 'Se connecter'}
           </button>
 
           {/* Forgot Password Link */}

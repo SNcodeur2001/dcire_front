@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import { PublicRoute } from './components/PublicRoute'
 import Dashboard from './pages/Dashboard'
 import NewCourrierUpload from './pages/NewCourrierUpload'
 import NewCourrierForm from './pages/NewCourrierForm'
@@ -27,51 +30,207 @@ import CourriersASolder from './pages/porteur/CourriersASolder'
 import CourriersSoldes from './pages/porteur/CourriersSoldes'
 import CourriersArchives from './pages/porteur/CourriersArchives'
 import PorteurCourrierDetail from './pages/porteur/CourrierDetail'
+import PorteurCourrierDetailConsultatif from './pages/porteur/CourrierDetailConsultatif'
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Landing/Marketing Pages */}
-        <Route 
-          path="/" 
-          element={
-            <div className="h-full">
-              <Header />
-              <Hero />
-            </div>
-          } 
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
-        
-        {/* Assistant Dashboard Pages */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/nouveau-courrier" element={<NewCourrierUpload />} />
-        <Route path="/nouveau-courrier/formulaire" element={<NewCourrierForm />} />
-        <Route path="/tous-courriers" element={<Navigate to="/dashboard" replace />} />
-        
-        {/* Director Dashboard Pages */}
-        <Route path="/directeur/tableau-de-bord" element={<DirectorDashboard />} />
-        <Route path="/directeur/tous-les-courriers" element={<AllCouriers />} />
-        <Route path="/directeur/courriers-imputes" element={<ImputedCouriers />} />
-        <Route path="/directeur/courriers-soldes" element={<SettledCouriers />} />
-        <Route path="/directeur/courrier/:id" element={<CourrierDetail />} />
+      <AuthProvider>
+        <Routes>
+          {/* Landing/Marketing Pages - Public Routes */}
+          <Route 
+            path="/" 
+            element={
+              <PublicRoute>
+                <div className="h-full">
+                  <Header />
+                  <Hero />
+                </div>
+              </PublicRoute>
+            } 
+          />
+          <Route 
+            path="/login" 
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            } 
+          />
+          <Route 
+            path="/mot-de-passe-oublie" 
+            element={
+              <PublicRoute>
+                <ForgotPassword />
+              </PublicRoute>
+            } 
+          />
+          
+          {/* Assistant Dashboard Pages - Protected */}
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute requiredRoles={['assistant']}>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/nouveau-courrier" 
+            element={
+              <ProtectedRoute requiredRoles={['assistant']}>
+                <NewCourrierUpload />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/nouveau-courrier/formulaire" 
+            element={
+              <ProtectedRoute requiredRoles={['assistant']}>
+                <NewCourrierForm />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/tous-courriers" element={<Navigate to="/dashboard" replace />} />
+          
+          {/* Director Dashboard Pages - Protected */}
+          <Route 
+            path="/directeur/tableau-de-bord" 
+            element={
+              <ProtectedRoute requiredRoles={['director']}>
+                <DirectorDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/directeur/tous-les-courriers" 
+            element={
+              <ProtectedRoute requiredRoles={['director']}>
+                <AllCouriers />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/directeur/courriers-imputes" 
+            element={
+              <ProtectedRoute requiredRoles={['director']}>
+                <ImputedCouriers />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/directeur/courriers-soldes" 
+            element={
+              <ProtectedRoute requiredRoles={['director']}>
+                <SettledCouriers />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/directeur/courrier/:id" 
+            element={
+              <ProtectedRoute requiredRoles={['director']}>
+                <CourrierDetail />
+              </ProtectedRoute>
+            } 
+          />
 
-        {/* Department Dashboard Pages */}
-        <Route path="/departement/tableau-de-bord" element={<DepartmentDashboard />} />
-        <Route path="/departement/tous-les-courriers" element={<DepartmentAllCouriers />} />
-        <Route path="/departement/courriers-imputes" element={<DepartmentImputedCouriers />} />
-        <Route path="/departement/courriers-soldes" element={<DepartmentSettledCouriers />} />
-        <Route path="/departement/courrier/:id" element={<DepartmentCourrierDetail />} />
+          {/* Department Dashboard Pages - Protected */}
+          <Route 
+            path="/departement/tableau-de-bord" 
+            element={
+              <ProtectedRoute requiredRoles={['department']}>
+                <DepartmentDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/departement/tous-les-courriers" 
+            element={
+              <ProtectedRoute requiredRoles={['department']}>
+                <DepartmentAllCouriers />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/departement/courriers-imputes" 
+            element={
+              <ProtectedRoute requiredRoles={['department']}>
+                <DepartmentImputedCouriers />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/departement/courriers-soldes" 
+            element={
+              <ProtectedRoute requiredRoles={['department']}>
+                <DepartmentSettledCouriers />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/departement/courrier/:id" 
+            element={
+              <ProtectedRoute requiredRoles={['department']}>
+                <DepartmentCourrierDetail />
+              </ProtectedRoute>
+            } 
+          />
 
-        {/* Porteur Dashboard Pages */}
-        <Route path="/porteur/tableau-de-bord" element={<PorteurDashboard />} />
-        <Route path="/porteur/courriers-a-solder" element={<CourriersASolder />} />
-        <Route path="/porteur/courriers-soldes" element={<CourriersSoldes />} />
-        <Route path="/porteur/courriers-archives" element={<CourriersArchives />} />
-        <Route path="/porteur/courrier/:id" element={<PorteurCourrierDetail />} />
-      </Routes>
+          {/* Porteur Dashboard Pages - Protected */}
+          <Route 
+            path="/porteur/tableau-de-bord" 
+            element={
+              <ProtectedRoute requiredRoles={['porteur']}>
+                <PorteurDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/porteur/courriers-a-solder" 
+            element={
+              <ProtectedRoute requiredRoles={['porteur']}>
+                <CourriersASolder />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/porteur/courriers-soldes" 
+            element={
+              <ProtectedRoute requiredRoles={['porteur']}>
+                <CourriersSoldes />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/porteur/courriers-archives" 
+            element={
+              <ProtectedRoute requiredRoles={['porteur']}>
+                <CourriersArchives />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/porteur/courrier/:id" 
+            element={
+              <ProtectedRoute requiredRoles={['porteur']}>
+                <PorteurCourrierDetail />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/porteur/courrier-consultatif/:id" 
+            element={
+              <ProtectedRoute requiredRoles={['porteur']}>
+                <PorteurCourrierDetailConsultatif />
+              </ProtectedRoute>
+            } 
+          />
+
+          {/* Catch all - redirect to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

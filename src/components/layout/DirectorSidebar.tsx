@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 interface NavItem {
   to: string;
@@ -15,6 +16,7 @@ const navItems: NavItem[] = [
 
 export default function DirectorSidebar() {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   return (
     <aside 
@@ -66,7 +68,10 @@ export default function DirectorSidebar() {
       {/* Logout Button */}
       <div className="p-2 md:p-3 lg:p-4">
         <button
-          onClick={() => navigate('/')}
+          onClick={() => {
+            logout();
+            navigate('/login', { replace: true });
+          }}
           className="flex items-center gap-2 md:gap-3 w-full px-3 md:px-4 lg:px-5 py-2.5 md:py-3 lg:py-3.5 rounded-sm hover:bg-(--color-gray-50) transition-all text-sm md:text-base"
         >
           <img 
